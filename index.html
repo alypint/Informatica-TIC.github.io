@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Informatică și TIC | Clasele V–XII</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --paper:#F6F8FC;
+  --grid:#DCE5F4;
+  --ink:#14213D;
+  --ink-soft:#4A5878;
+  --pen:#2346D6;
+  --pen-soft:#E3E9FC;
+  --marker:#FFD93D;
+  --tic:#14966A;
+  --tic-soft:#DDF3EA;
+  --red:#D93F45;
+  --surface:#FFFFFF;
+  --line:#C9D4EA;
+  --code-bg:#14213D;
+  --code-ink:#E8EDFA;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1526; --grid:#18233B; --ink:#E9EEFA; --ink-soft:#A3B0CC;
+    --pen:#7D97FF; --pen-soft:#1C2A50; --marker:#FFD93D; --tic:#3FD39E; --tic-soft:#123A2D;
+    --red:#FF6B70; --surface:#131E34; --line:#26355A; --code-bg:#070C18; --code-ink:#E8EDFA;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1526; --grid:#18233B; --ink:#E9EEFA; --ink-soft:#A3B0CC;
+  --pen:#7D97FF; --pen-soft:#1C2A50; --marker:#FFD93D; --tic:#3FD39E; --tic-soft:#123A2D;
+  --red:#FF6B70; --surface:#131E34; --line:#26355A; --code-bg:#070C18; --code-ink:#E8EDFA;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;font-family:var(--body);font-size:1.0625rem;line-height:1.6;color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+img{max-width:100%}
+a{color:var(--pen)}
+:focus-visible{outline:3px solid var(--marker);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand-mark{width:40px;height:40px;border-radius:10px;background:var(--ink);color:var(--marker);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:.95rem}
+.brand b{font-family:var(--display);font-size:1.15rem;display:block;line-height:1.1}
+.brand small{color:var(--ink-soft);font-size:.82rem}
+nav.main{display:flex;gap:4px;flex-wrap:wrap}
+nav.main a{color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:700;font-size:.95rem}
+nav.main a:hover{background:var(--pen-soft)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer}
+@media (max-width:860px){
+  .menu-btn{display:block}
+  nav.main{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);padding:10px clamp(18px,4vw,40px) 16px;flex-direction:column}
+  nav.main.open{display:flex}
+}
+
+/* Hero */
+.hero{padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,72px)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:center}
+@media (max-width:920px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.6vw,4.4rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 22px}
+.hero p.lead{font-size:clamp(1.08rem,1.6vw,1.25rem);color:var(--ink-soft);max-width:34em;margin:0 0 28px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:12px;font-weight:700;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:var(--surface)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{transform:translateY(-1px)}
+
+/* Pseudocode notebook block — the memorable element */
+.code-card{background:var(--code-bg);color:var(--code-ink);border-radius:18px;padding:26px 26px 22px;font-family:var(--mono);font-size:clamp(.82rem,1.35vw,.98rem);line-height:1.75;box-shadow:10px 10px 0 var(--marker);overflow-x:auto;position:relative}
+.code-card .cap{display:flex;justify-content:space-between;color:#8EA0C9;font-size:.78rem;margin-bottom:14px;gap:12px}
+.code-card pre{margin:0;white-space:pre}
+.kw{color:#FFD93D;font-weight:600}
+.fn{color:#8FB0FF}
+.str{color:#6EE7B7}
+.num{color:#FCA5A5}
+.cm{color:#7F8DB0;font-style:italic}
+.caret{display:inline-block;width:.6em;height:1.1em;background:var(--marker);vertical-align:-3px;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Sections */
+section.block{padding:clamp(44px,7vw,84px) 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.sec-head h2{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,3.6vw,2.8rem);line-height:1.05;letter-spacing:-.015em;margin:0}
+.sec-head p{margin:6px 0 0;color:var(--ink-soft);max-width:38em}
+.hl{background:linear-gradient(transparent 58%,var(--marker) 58%,var(--marker) 92%,transparent 92%);padding:0 .1em}
+
+/* Gimnaziu: track of classes 5-8 */
+.track{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;border:2px solid var(--ink);border-radius:20px;background:var(--surface);overflow:hidden}
+@media (max-width:860px){.track{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.track{grid-template-columns:1fr}}
+.stop{display:block;padding:26px 24px 24px;text-decoration:none;color:var(--ink);border-right:2px dashed var(--line);position:relative;min-height:220px}
+.stop:last-child{border-right:none}
+@media (max-width:860px){.stop{border-bottom:2px dashed var(--line)}.stop:nth-child(2n){border-right:none}}
+.stop .n{font-family:var(--display);font-weight:800;font-size:4.2rem;line-height:.9;color:var(--pen);display:block}
+.stop h3{font-family:var(--display);margin:10px 0 4px;font-size:1.25rem}
+.stop .sub{font-size:.88rem;font-weight:700;color:var(--tic)}
+.stop p{margin:8px 0 0;font-size:.95rem;color:var(--ink-soft)}
+.stop:hover{background:var(--pen-soft)}
+.stop:hover .open{text-decoration:underline}
+.open{display:inline-block;margin-top:12px;font-weight:700;color:var(--pen);font-size:.92rem}
+
+/* Liceu matrix */
+.matrix{border:2px solid var(--ink);border-radius:20px;overflow:hidden;background:var(--surface)}
+.matrix-row{display:grid;grid-template-columns:120px 1fr 1fr;border-top:1px solid var(--line)}
+.matrix-row:first-child{border-top:none}
+.matrix-head{background:var(--ink);color:var(--paper)}
+.matrix-head div{padding:14px 20px;font-family:var(--display);font-weight:700;font-size:1.1rem}
+.matrix .yr{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:2.6rem;color:var(--pen);border-right:1px solid var(--line)}
+.cell{display:block;padding:18px 22px;text-decoration:none;color:var(--ink);border-right:1px solid var(--line)}
+.cell:last-child{border-right:none}
+.cell b{font-family:var(--display);font-size:1.08rem}
+.cell span{display:block;font-size:.92rem;color:var(--ink-soft);margin-top:2px}
+.cell.inf:hover{background:var(--pen-soft)}
+.cell.tic:hover{background:var(--tic-soft)}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:2px}
+.tag.i{background:var(--pen-soft);color:var(--pen)}
+.tag.t{background:var(--tic-soft);color:var(--tic)}
+@media (max-width:700px){
+  .matrix-head{display:none}
+  .matrix-row{grid-template-columns:72px 1fr}
+  .matrix .yr{grid-row:span 2;font-size:2rem}
+  .cell{border-right:none;border-bottom:1px solid var(--line)}
+  .cell:last-child{border-bottom:none}
+}
+
+/* Bac + Olimpiade */
+.duo{display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
+@media (max-width:860px){.duo{grid-template-columns:1fr}}
+.feature{display:block;text-decoration:none;color:var(--ink);border-radius:22px;padding:clamp(24px,4vw,40px);position:relative;overflow:hidden}
+.feature h3{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.05;margin:0 0 12px}
+.feature p{margin:0 0 18px;max-width:30em}
+.bac{background:var(--ink);color:var(--paper)}
+.bac p{color:color-mix(in srgb,var(--paper) 78%,transparent)}
+.bac .subj{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.bac .subj div{border:1px solid color-mix(in srgb,var(--paper) 30%,transparent);border-radius:12px;padding:12px}
+.bac .subj b{font-family:var(--mono);color:var(--marker);display:block;font-size:.9rem}
+.bac .subj span{font-size:.85rem}
+.bac .open{color:var(--marker)}
+.olimp{background:var(--marker);color:#14213D}
+.olimp p{color:#2B3755}
+.olimp .open{color:#14213D}
+.olimp ul{list-style:none;padding:0;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+.olimp li{border:2px solid #14213D;border-radius:99px;padding:4px 12px;font-weight:700;font-size:.88rem}
+.medal{position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;border:16px solid rgba(20,33,61,.12)}
+
+/* Future IT */
+.future{background:var(--code-bg);color:var(--code-ink);border-radius:28px;padding:clamp(28px,5vw,56px)}
+.future .sec-head h2{color:#fff}
+.future .sec-head p{color:#A9B6D6}
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#26355A;border:1px solid #26355A;border-radius:16px;overflow:hidden}
+@media (max-width:860px){.paths{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.paths{grid-template-columns:1fr}}
+.path{background:var(--code-bg);padding:22px 22px 24px}
+.path svg{width:34px;height:34px;stroke:var(--marker);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.path h3{font-family:var(--display);font-size:1.2rem;margin:12px 0 6px;color:#fff}
+.path p{margin:0;font-size:.93rem;color:#A9B6D6}
+.path .from{display:block;margin-top:12px;font-family:var(--mono);font-size:.78rem;color:#6EE7B7}
+
+/* Category view */
+#view-cat{display:none}
+body.cat-mode #view-home{display:none}
+body.cat-mode #view-cat{display:block}
+.crumbs{font-size:.92rem;color:var(--ink-soft);margin:36px 0 14px}
+.crumbs a{color:var(--ink-soft)}
+.cat-hero{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;margin-bottom:34px}
+@media (max-width:600px){.cat-hero{grid-template-columns:1fr}}
+.cat-num{font-family:var(--display);font-weight:800;font-size:clamp(5rem,12vw,8rem);line-height:.85;color:var(--pen);min-width:1.2em}
+.cat-num.small{font-size:clamp(3rem,7vw,4.5rem)}
+.cat-hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.05;margin:0 0 8px}
+.cat-hero p{margin:0;color:var(--ink-soft);max-width:40em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chips span{background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:.88rem}
+.shelves{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding-bottom:70px}
+@media (max-width:760px){.shelves{grid-template-columns:1fr}}
+.shelf{background:var(--surface);border:2px solid var(--ink);border-radius:18px;padding:22px 24px}
+.shelf h2{font-family:var(--display);font-size:1.3rem;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+.shelf h2 i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.shelf .desc{margin:0 0 14px;font-size:.92rem;color:var(--ink-soft)}
+.shelf ul{list-style:none;margin:0;padding:0}
+.shelf li a{display:block;padding:10px 0;border-top:1px solid var(--line);text-decoration:none;font-weight:700}
+.empty{border:2px dashed var(--line);border-radius:12px;padding:16px;font-size:.92rem;color:var(--ink-soft)}
+.back{margin:0 0 24px}
+
+footer{border-top:1px solid var(--line);background:var(--paper);padding:34px 0 40px;font-size:.92rem;color:var(--ink-soft)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer b{color:var(--ink);font-family:var(--display)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#acasa">
+      <span class="brand-mark">&lt;/&gt;</span>
+      <span><b>Informatică și TIC</b><small>Prof. Alina Pintescu</small></span>
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Meniu</button>
+    <nav class="main" id="nav">
+      <a href="#gimnaziu">Gimnaziu</a>
+      <a href="#liceu">Liceu</a>
+      <a href="#/bacalaureat">Bacalaureat</a>
+      <a href="#/olimpiade">Olimpiade</a>
+      <a href="#viitor">Viitorul în IT</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div id="view-home">
+  <section class="hero" id="acasa">
+    <div class="wrap">
+      <div>
+        <h1>De la primul algoritm până la bacalaureat și mai departe.</h1>
+        <p class="lead">Lecții, fișe de lucru, teste și proiecte pentru orele de Informatică și TIC, organizate pe clase, de la a V-a la a XII-a. Alege-ți clasa și începe.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#gimnaziu">Clasele V–VIII</a>
+          <a class="btn" href="#liceu">Clasele IX–XII</a>
+        </div>
+      </div>
+      <div class="code-card" aria-label="Pseudocod: drumul unui elev la ora de informatică">
+        <div class="cap"><span>elev.pseudocod</span><span>anul școlar 2026–2027</span></div>
+<pre><span class="kw">citește</span> elev
+nivel ← <span class="num">5</span>
+<span class="kw">cât timp</span> elev.curiozitate &gt; <span class="num">0</span> <span class="kw">execută</span>
+│  <span class="fn">învață</span>(algoritm)
+│  <span class="fn">exersează</span>(problemă)
+│  <span class="kw">dacă</span> problemă.rezolvată <span class="kw">atunci</span>
+│  │  nivel ← nivel + <span class="num">1</span>
+│  └■
+└■
+<span class="kw">scrie</span> <span class="str">"gata pentru viitor"</span> <span class="caret"></span></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gimnaziu">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>Gimnaziu: <span class="hl">Informatică și TIC</span></h2>
+          <p>Patru ani în care calculatorul devine unealtă de lucru, iar algoritmii, un mod de a gândi.</p>
+        </div>
+      </div>
+      <div class="track" id="track"></div>
+    </div>
+  </section>
+
+  <section class="block" id="liceu">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>Liceu: Informatică și TIC</h2>
+          <p>Alege anul de studiu și disciplina. Informatica pune accent pe programare și algoritmi, TIC pe aplicații, date și web.</p>
+        </div>
+      </div>
+      <div class="matrix" id="matrix">
+        <div class="matrix-row matrix-head"><div>Clasa</div><div>Informatică</div><div>TIC</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="examene">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>Examene și performanță</h2>
+          <p>Pregătire țintită pentru bacalaureat și antrenament pentru cei care vor mai mult.</p>
+        </div>
+      </div>
+      <div class="duo">
+        <a class="feature bac" href="#/bacalaureat">
+          <h3>Pregătire Bacalaureat la Informatică</h3>
+          <p>Variante rezolvate, bareme și probleme grupate pe tipuri de subiecte, ca să știi exact ce exersezi.</p>
+          <div class="subj">
+            <div><b>Subiectul I</b><span>Grilă și algoritmi</span></div>
+            <div><b>Subiectul II</b><span>Structuri și cod</span></div>
+            <div><b>Subiectul III</b><span>Programe complete</span></div>
+          </div>
+          <span class="open">Deschide pregătirea</span>
+        </a>
+        <a class="feature olimp" href="#/olimpiade">
+          <span class="medal" aria-hidden="true"></span>
+          <h3>Olimpiade și concursuri</h3>
+          <p>Probleme de antrenament, subiecte din anii trecuți și calendarul competițiilor.</p>
+          <ul>
+            <li>OJI</li><li>ONI</li><li>Bebras</li><li>InfoEducație</li><li>Concursuri de TIC</li>
+          </ul>
+          <span class="open">Vezi competițiile</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="viitor">
+    <div class="wrap">
+      <div class="future">
+        <div class="sec-head">
+          <div>
+            <h2>Ce poți deveni cu ce înveți aici</h2>
+            <p>Fiecare lecție de azi e o piesă dintr-o meserie de mâine. Iată câteva drumuri în IT și de unde pornesc ele.</p>
+          </div>
+        </div>
+        <div class="paths">
+          <div class="path">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 7l4 3M18 7l-4 3M6 17l4-3M18 17l-4-3"/></svg>
+            <h3>Inteligență artificială</h3>
+            <p>Modele care învață din date, recunosc imagini și înțeleg limbajul.</p>
+            <span class="from">pornește de la: algoritmi, statistică, Python</span>
+          </div>
+          <div class="path">
+            <svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+            <h3>Securitate cibernetică</h3>
+            <p>Protejarea rețelelor, a conturilor și a datelor oamenilor.</p>
+            <span class="from">pornește de la: rețele, siguranță online</span>
+          </div>
+          <div class="path">
+            <svg viewBox="0 0 24 24"><path d="M7 18a5 5 0 010-10 6 6 0 0111.5 2A4 4 0 0117 18z"/></svg>
+            <h3>Cloud și infrastructură</h3>
+            <p>Servere și servicii care țin online aplicațiile folosite de milioane de oameni.</p>
+            <span class="from">pornește de la: sisteme de operare, rețele</span>
+          </div>
+          <div class="path">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14l-2 2 2 2M16 14l2 2-2 2"/></svg>
+            <h3>Dezvoltare web și aplicații</h3>
+            <p>Site-uri, aplicații mobile și jocuri pe care le folosești în fiecare zi.</p>
+            <span class="from">pornește de la: HTML, CSS, programare</span>
+          </div>
+          <div class="path">
+            <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+            <h3>Știința datelor</h3>
+            <p>Transformarea cifrelor în răspunsuri și decizii.</p>
+            <span class="from">pornește de la: foi de calcul, baze de date, SQL</span>
+          </div>
+          <div class="path">
+            <svg viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="10" rx="2"/><path d="M12 8V4M9 13h.01M15 13h.01M3 13h3M18 13h3"/></svg>
+            <h3>Robotică și IoT</h3>
+            <p>Dispozitive inteligente care simt, decid și acționează în lumea reală.</p>
+            <span class="from">pornește de la: algoritmi, programare, logică</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="view-cat">
+  <div class="wrap">
+    <p class="crumbs" id="crumbs"></p>
+    <div class="cat-hero">
+      <div class="cat-num" id="cat-num"></div>
+      <div>
+        <h1 id="cat-title"></h1>
+        <p id="cat-desc"></p>
+        <div class="chips" id="cat-chips"></div>
+      </div>
+    </div>
+    <div class="shelves" id="shelves"></div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Prof. Alina Pintescu</b><br>Profesor de Informatică și TIC<br>Colegiul Național „Gheorghe Șincai” Baia Mare</div>
+    <div>Anul școlar 2026–2027<br>Contact: <a href="mailto:alina.pintescu@sincaibm.ro">alina.pintescu@sincaibm.ro</a></div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONȚINUT — aici completezi materialele pentru fiecare categorie.
+   Fiecare categorie are 4 rafturi: lectii, fise, teste, resurse.
+   Adaugă elemente de forma: { titlu: "Lecția 1 ...", link: "https://..." }
+   ============================================================ */
+const R = () => ({ lectii: [], fise: [], teste: [], resurse: [] });
+
+const CATEGORII = {
+  "clasa-5":  { nr:"5",  grup:"Gimnaziu", titlu:"Clasa a V-a", disc:"Informatică și TIC", desc:"Primii pași: calculatorul, siguranța online și primii algoritmi.", teme:["Sistemul de calcul","Siguranța pe internet","Editoare grafice","Algoritmi","Mediu de programare vizual"], ...R() },
+  "clasa-6":  { nr:"6",  grup:"Gimnaziu", titlu:"Clasa a VI-a", disc:"Informatică și TIC", desc:"Documente, prezentări și algoritmi tot mai bine structurați.", teme:["Editoare de text","Prezentări","Algoritmi","Programare vizuală"], ...R() },
+  "clasa-7":  { nr:"7",  grup:"Gimnaziu", titlu:"Clasa a VII-a", disc:"Informatică și TIC", desc:"Trecerea la un limbaj de programare și primele programe scrise de mână.", teme:["Algoritmi","Limbaj de programare","Structuri de control","Aplicații"], ...R() },
+  "clasa-8":  { nr:"8",  grup:"Gimnaziu", titlu:"Clasa a VIII-a", disc:"Informatică și TIC", desc:"Date, foi de calcul și proiecte care leagă tot ce ai învățat.", teme:["Prelucrarea datelor","Foi de calcul","Programare","Proiecte"], ...R() },
+
+  "info-9":   { nr:"9",  grup:"Liceu", titlu:"Clasa a IX-a", disc:"Informatică", desc:"Algoritmi elementari și fundamentele programării în C++.", teme:["Algoritmi","Pseudocod","C++","Structuri de control","Algoritmi elementari"], ...R() },
+  "info-10":  { nr:"10", grup:"Liceu", titlu:"Clasa a X-a", disc:"Informatică", desc:"Tablouri, șiruri de caractere, fișiere și subprograme.", teme:["Tablouri","Șiruri de caractere","Fișiere","Subprograme"], ...R() },
+  "info-11":  { nr:"11", grup:"Liceu", titlu:"Clasa a XI-a", disc:"Informatică", desc:"Tehnici de programare și structuri de date avansate.", teme:["Recursivitate","Backtracking","Divide et impera","Grafuri","Arbori"], ...R() },
+  "info-12":  { nr:"12", grup:"Liceu", titlu:"Clasa a XII-a", disc:"Informatică", desc:"Baze de date, SQL și recapitulare pentru examen.", teme:["Baze de date","SQL","Proiecte","Recapitulare"], ...R() },
+
+  "tic-9":    { nr:"9",  grup:"Liceu", titlu:"Clasa a IX-a", disc:"TIC", desc:"Sisteme de calcul, rețele, internet și documente profesionale.", teme:["Sisteme de calcul","Rețele și internet","Procesare de text","Siguranță digitală"], ...R() },
+  "tic-10":   { nr:"10", grup:"Liceu", titlu:"Clasa a X-a", disc:"TIC", desc:"Foi de calcul, grafice și prezentări care comunică clar.", teme:["Foi de calcul","Funcții și formule","Grafice","Prezentări"], ...R() },
+  "tic-11":   { nr:"11", grup:"Liceu", titlu:"Clasa a XI-a", disc:"TIC", desc:"Baze de date și primele pagini web.", teme:["Baze de date","Interogări","HTML","CSS"], ...R() },
+  "tic-12":   { nr:"12", grup:"Liceu", titlu:"Clasa a XII-a", disc:"TIC", desc:"Proiecte web și aplicații complete, plus pregătire pentru competențele digitale.", teme:["Web","Proiecte","Competențe digitale"], ...R() },
+
+  "bacalaureat": { nr:"BAC", grup:"Examene", titlu:"Pregătire Bacalaureat", disc:"Informatică", desc:"Variante, bareme și probleme grupate pe subiecte.", teme:["Subiectul I","Subiectul II","Subiectul III","Variante rezolvate","Bareme"], ...R() },
+  "olimpiade":   { nr:"OLI", grup:"Performanță", titlu:"Olimpiade și concursuri", disc:"de specialitate", desc:"Probleme de antrenament, subiecte anterioare și calendarul competițiilor.", teme:["OJI","ONI","Bebras","InfoEducație","Concursuri TIC"], ...R() }
+};
+
+const RAFTURI = [
+  { cheie:"lectii",  nume:"Lecții",                desc:"Teorie explicată pas cu pas, cu exemple.", culoare:"var(--pen)" },
+  { cheie:"fise",    nume:"Fișe de lucru",         desc:"Exerciții pentru clasă și acasă.",         culoare:"var(--tic)" },
+  { cheie:"teste",   nume:"Teste și evaluări",     desc:"Verifică ce ai învățat.",                 culoare:"var(--red)" },
+  { cheie:"resurse", nume:"Proiecte și resurse",   desc:"Proiecte, aplicații și linkuri utile.",    culoare:"var(--marker)" }
+];
+
+/* ---------- Pagina principală ---------- */
+const track = document.getElementById("track");
+["clasa-5","clasa-6","clasa-7","clasa-8"].forEach(id=>{
+  const c = CATEGORII[id];
+  track.insertAdjacentHTML("beforeend",
+    `<a class="stop" href="#/${id}"><span class="n">${c.nr}</span><h3>${c.titlu}</h3><span class="sub">${c.disc}</span><p>${c.desc}</p><span class="open">Intră în clasă</span></a>`);
+});
+const matrix = document.getElementById("matrix");
+[9,10,11,12].forEach(n=>{
+  const i = CATEGORII["info-"+n], t = CATEGORII["tic-"+n];
+  matrix.insertAdjacentHTML("beforeend",
+    `<div class="matrix-row"><div class="yr">${n}</div>
+      <a class="cell inf" href="#/info-${n}"><b>${i.titlu}</b><span class="tag i">Informatică</span><span>${i.teme.slice(0,3).join(", ")}</span></a>
+      <a class="cell tic" href="#/tic-${n}"><b>${t.titlu}</b><span class="tag t">TIC</span><span>${t.teme.slice(0,3).join(", ")}</span></a>
+    </div>`);
+});
+
+/* ---------- Pagina de categorie ---------- */
+function esc(s){return String(s).replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]))}
+function showCat(id){
+  const c = CATEGORII[id];
+  if(!c){ showHome(); return; }
+  document.body.classList.add("cat-mode");
+  const sectiune = c.grup==="Gimnaziu" ? "gimnaziu" : (c.grup==="Liceu" ? "liceu" : "examene");
+  document.getElementById("crumbs").innerHTML = `<a href="#acasa">Acasă</a> / <a href="#${sectiune}">${c.grup}</a> / ${esc(c.titlu)}`;
+  const num = document.getElementById("cat-num");
+  num.textContent = c.nr; num.classList.toggle("small", c.nr.length>2);
+  document.getElementById("cat-title").textContent = `${c.titlu}, ${c.disc}`;
+  document.getElementById("cat-desc").textContent = c.desc;
+  document.getElementById("cat-chips").innerHTML = c.teme.map(t=>`<span>${esc(t)}</span>`).join("");
+  document.getElementById("shelves").innerHTML = RAFTURI.map(r=>{
+    const items = c[r.cheie];
+    const body = items.length
+      ? `<ul>${items.map(x=>`<li><a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.titlu)}</a></li>`).join("")}</ul>`
+      : `<div class="empty">Materialele vor apărea aici în curând.</div>`;
+    return `<div class="shelf"><h2><i style="background:${r.culoare}"></i>${r.nume}</h2><p class="desc">${r.desc}</p>${body}</div>`;
+  }).join("");
+  document.title = `${c.titlu}, ${c.disc} | Informatică și TIC`;
+  window.scrollTo(0,0);
+}
+function showHome(){
+  document.body.classList.remove("cat-mode");
+  document.title = "Informatică și TIC | Clasele V–XII";
+}
+function route(){
+  const h = location.hash;
+  if(h.startsWith("#/")) showCat(h.slice(2));
+  else {
+    showHome();
+    if(h){ const el=document.querySelector(h); if(el) el.scrollIntoView(); }
+  }
+  nav.classList.remove("open"); btn.setAttribute("aria-expanded","false");
+}
+const btn = document.querySelector(".menu-btn"), nav = document.getElementById("nav");
+btn.addEventListener("click",()=>{const o=nav.classList.toggle("open");btn.setAttribute("aria-expanded",o)});
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
